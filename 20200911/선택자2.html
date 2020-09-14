@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>2. 선택자2</title>
+		<link href ="../CSS/public.css" rel ="stylesheet">
+		<script src="../js/jquery-3.5.1.min.js" ></script>
+		<script>
+		
+		$(function(){
+			
+			$('#but1').on('click',function(){
+		
+			 //h3 다음의 모든 형제(p태그들)의 배경색을 변경, 길이지정, 가운데정렬
+// 			 $('#result1 h3 ~ p').css('background','lime')
+// 								 .css('width','200px')
+// 								 .css('text-align','center');
+				$('#result1 h3 ~ p').css({'background':'olive','width':'200px','text-align':'center'});
+		    
+				//h3 다음의 첫번째 형제의 글자를 굵게, 크게  : font-weight 
+				
+				$('#result1 h3 + p').css({'font-weight':'bold','font-size' : '1.5em'});
+				
+				
+				
+				
+			})//but1
+			
+		});//fun
+		
+		
+		
+		</script>
+		
+	</head>
+	<body>
+		
+		<div class ="box">
+			<h3>형제선택자</h3>
+			h3 다음의 모든 형제의 배경색을 변경, 길이지정, 가운데정렬<br>
+      		h3 다음의 첫번째 형제의 글자를 굵게, 크게  : font-weight :bold ,font-size : 1.2em<br>
+      		(앞에 있는 형제는 선택할 수 없다 ==> 다음에 메서드로 구현한다)<br><br>
+			<input id = "but1" type = "button" value ="확인">
+			<div id = "result1">
+				 <p>형제 선택자 에 대하여</p>
+				 <h3> 꼬마버스 타요 가족을 소개 합니다</h3>
+				 <p> 타요</p>
+				 <p> 로기</p>
+				 <p> 라니 </p>
+				 <p> 가니 </p>
+			
+			</div>
+		</div>
+	</body>
+</html>

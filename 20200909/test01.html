@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<link href ="../css/public.css" rel ="stylesheet">
+		<script src ="../js/jquery-3.5.1.min.js"></script>  <!-- 외부스크립트 -->
+		
+		<script>
+		
+		//1. HTML기본 
+// 		window.onload = function() {
+// 		document.querySelector('#result1').innerHTML ="Hello~";
+			
+// 		}
+
+
+		//2.document.querySelector('#result1').innerHTML ="Hello~" => $('#result1').html("Hello~")
+// 		window.onload = function() {$('#result1').html("Hello~");}
+		
+		
+		
+		//3.ready(function(){}) ==  $(document).ready(function(){}
+// 		$(document).ready(function(){ //ready(function(){}) : window.onload = function()과 같다
+			
+// // 			$('#result1').html("Hello~"); //아래와 동일한 방법
+// 			document.querySelector('#result1').innerHTML ="Hello~";
+		
+// 		$('#start').on('click',function(){
+			
+// 				alert("Hello~")
+// 		})
+// 		})
+
+		$(function(){ // == $(document).ready(function(){}) == widow.onload = function(){}
+			$('#start').on('click',function(){
+				
+				alert("Hello~")
+		})
+		})
+		
+		
+		
+		</script> <!-- 내부 스크립트 -->
+	</head>
+	<body>
+		
+		<div class ="box">
+			<h3>타이틀</h3>
+			외부 라이브러리를 다운 받아 삽입<br>
+			- &lt;script src ="../js/jquery-3.5.1.min.js"&gt;&lt;/script&gt;<br>
+			- document.querySelector('#result1') => $('#result1') <br>
+			- window.onload = function() {} => $(document).ready(function(){})<br>
+			<input type = "button" value ="확인" id ="start">
+			<div id = "result1"></div>
+		</div>
+	</body>
+</html>

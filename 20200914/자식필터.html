@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>3.자식필터</title>
+		<link href ="../CSS/public.css" rel ="stylesheet">
+		<script src="../js/jquery-3.5.1.min.js" ></script>
+		<script>
+		
+		$(function(){
+			
+			$('.box1 :button').on('click',function(){
+				
+				//first는 전체 중에 하나만
+				$('li:first').css('background','yellow');
+				
+				//first-child는 각각의 ol의 li 중에 첫번째인거
+				$('li:first-child').css('border','3px solid red');
+				
+				
+			})//but
+			
+			
+			$('.box2 :button').on('click',function(){
+				
+// 				$('td:first-child,td:nth-child(3)').css('background','gray');
+// 				$('td:nth-child(2n-1)').css('background','gray');
+				$('#tab1 td:nth-child(odd)').css('background','#f5c9e0');
+				
+// 				$('td:nth-child(2),td:last-child').css('background','lightgray');
+// 				$('td:nth-child(2)').css('background','lightgray');
+				$('#tab1 td:nth-child(even)').css('background','#ede4e9');
+				
+				
+				
+				$('#tab2 td:first-child').css('background','#bfbe71');
+				
+				$('#tab2 td:nth-child(2)').css('background','#e0e0bf');
+				
+				$('#tab2 tr:first-child td').css({'background':'#a1a185','color':'white'});
+				
+			})//but2
+			
+		})//fun
+		
+		
+		
+		</script>
+		<style>
+		
+		td{
+		
+		width:  200px;
+		height: 40px;
+		padding: 5px;
+		text-align: center;
+		
+		}</style>
+		
+	</head>
+	<body>
+		
+		<div class ="box box1">
+			<h3>자식필터</h3>
+			:first-child<br>
+			:last-child<br>		
+			:nth-child(index/even/odd)<br>
+			
+			<input type = "button" value ="확인">
+			<div id = "result1">
+			<h3>여자에게 인기있는 남자들</h3>
+			<ol>
+			
+				<li>능력있는 남자</li>
+				<li>돈 많은 남자</li>
+				<li>잘생긴 남자</li>
+				<li>프로그래머</li>
+			
+			</ol>
+			<h3>남자에게 인기있는 여자들</h3>
+			<ol> 
+				
+				<li>예쁜 여자</li>
+				<li>귀여운 여자</li>
+				<li>섹시한 여자</li>
+			</ol>
+			
+			</div>
+		</div>
+		<div class ="box box2">
+			<h3>자식필터</h3>
+			:first-child<br>
+			:last-child<br>		
+			:nth-child(index/even/odd)<br>
+			$('td:first-child')
+			$('td:nth-child(2)')
+			
+			<input type = "button" value ="확인">
+			<div id = "result2">
+			<table  id ="tab1">
+				<tr>
+					<td>이름</td>
+					<td>주소</td>
+					<td>나이</td>
+					<td>전화번호</td>
+				</tr>
+				<tr>
+					<td>홍길동</td>
+					<td>대전</td>
+					<td>20</td>
+					<td>010-222-333</td>
+				</tr>
+				<tr>
+					<td>진달래</td>
+					<td>서울</td>
+					<td>20</td>
+					<td>010-444-555</td>
+				</tr>
+				<tr>
+					<td>개나리</td>
+					<td>부산</td>
+					<td>20</td>
+					<td>010-777-888</td>
+				</tr>
+				<tr>
+					<td>무궁화</td>
+					<td>대구</td>
+					<td>20</td>
+					<td>010-555-999</td>
+				</tr>
+				
+			</table>
+			<br><br>
+			<table id ="tab2">
+			<tr>
+				<td>이름</td>
+				<td>주소</td>
+				<td>전화번호</td>
+			</tr>
+			<tr>
+				<td>이유네</td>
+				<td>대전</td>
+				<td>000-0000-0000</td>
+			</tr>
+			<tr>
+				<td>영섭군</td>
+				<td>청주</td>
+				<td>000-000-0000</td>
+			</tr>
+			<tr>
+				<td>상구</td>
+				<td>한남대</td>
+				<td>222-222-2222</td>
+			</tr>
+			
+			</table>
+			
+			</div>
+		</div>
+	</body>
+</html>

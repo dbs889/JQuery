@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<link href ="../CSS/public.css" rel ="stylesheet">
+		<script src="../js/jquery-3.5.1.min.js" ></script>
+		
+		<script>
+		
+// 		$()함수의 인수로 다른 함수를 전달하면 문서가 로드될 때 호출될 콜백 함수를 등록한다 
+// 		 window.onload 이벤트와 유사 , document.ready 이벤트에 대한 
+		
+		$(function(){
+		
+			$('h1').on('click',function(){
+				
+				
+// 				css 사용 법 :  this.style.display = "none";
+// 				js 사용 법 : $(this).css('display',"none");
+				$(this).hide();
+				
+				
+			})
+			
+		})
+		
+		
+		
+		</script>
+		
+		<style>
+		
+		h1:hover{
+			background: Lime;
+		
+		}
+		</style>
+	</head>
+	<body>
+		
+		<div class ="box">
+			<h3>클리하면 사라지기</h3>
+			각 요소를 클릭하면 사라지게 한다
+			클릭하는 요소의 대상을 this로 받을 수 있다.<br>
+			$(this).css('display','none')<br>
+			
+			<h1>클릭하면 사라집니다1</h1>
+			<h1>클릭하면 사라집니다2</h1>
+			<h1>클릭하면 사라집니다3</h1>
+			<h1>클릭하면 사라집니다4</h1>
+			<h1>클릭하면 사라집니다5</h1>
+			<h1>클릭하면 사라집니다6</h1>
+			<h1>클릭하면 사라집니다7</h1>
+			<h1>클릭하면 사라집니다8</h1>
+			<h1>클릭하면 사라집니다9</h1>
+			<h1>클릭하면 사라집니다10</h1>
+		</div>
+	</body>
+</html>
