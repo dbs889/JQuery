@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Member Join</title>
+		 <meta name="viewport" content="width=device-width, initial-scale=1">
+		 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		 <script src="../js/jquery.serializejson.min.js"></script>
+<!-- 		<link href ="../CSS/public.css" rel ="stylesheet"> -->
+		
+		<script>
+		
+			$(function(){
+				
+				
+				
+				//번호검색 클릭
+				$('#btnzip').on('click',function(){
+					
+					
+					window.open('zip.html', "우편번호찾기", "width = 500 height =400");
+// 					$('#myModal').modal('show');
+				})
+				
+				//번호검색버튼에 대한 이벤트 modal방식
+			
+				//주소찾기 모달 찰에서 확인버튼 클릭하면
+				$('#btndong').on('click',function(){
+					dongvalue = $('#dong').val().trim();
+					$.ajax({
+						
+						url :'/jqpro/zip.do',
+						type : 'post',
+						data : {'dong' : dongvalue}, //'dong'에 저장된 값이 zip.do로 넘어간다
+						success : function(res){
+							$('#result1').html(res);
+						},
+						error : function(req){
+							alert("상태 : " + req.status + "\n 메세지 : " + req.statusText);
+						},
+						dataType : 'html'
+						 
+					})//ajax
+				
+				})//btn click
+				
+				//주소 결과 중 하나를 선택하면
+				$('#result1').on('click','.ziptr',function(){
+				zipcode =$('td:eq(0)',this).text(); //this == ziptr //val()input에서만 가능 //html(),text()모두 가능
+				addr = $('td:eq(1)',this).text();
+				$('#zip').val(zipcode);
+				$('#add1').val(addr);
+			
+					$('#myModal').modal('hide');
+				})//result1 click
+				
+				//modal창이 닫힐 때 입력 또는 출력된 결과값을 지운다
+				$('#myModal').on('hide.bs.modal',function(){
+					
+					$('#dong').val(""); //공백으로 바꾼다
+					$('#result1').empty(); //result1의 내요을 지운다
+					
+				})	//myModal close			
+				
+			
+				
+				//가입 신청 클릭
+				$('#btnjoin').on('click',function(){
+					
+					
+					//입력한 모든 값을 자동으로 가져온다
+					console.log($('#form').serialize());
+					console.log($('#form').serializeArray());
+					console.log($('#form').serializeJSON());
+					
+					$.ajax({
+						url :'/jqpro/insert.do',
+						type : 'post',
+						data : $('#form').serializeArray(),
+						success : function(res){
+							$('#spjoin').html(res.sw).css('color','red');
+							$('#btnreset').hide();
+							
+							
+						},
+						error : function(req){
+							alert("상태 : "+ req.status);
+						},
+						dataType : 'json'
+						
+						
+					})//ajax
+					
+					
+				})//btnjoin click
+				
+					//1. 중복검사버튼 클릭
+				$('#btnid').on('click',function(){
+// 					idval = $('#id').val().trim();
+					
+					
+					//공백체크
+					if(idval.length < 1){
+						alert("id를 입력하세요");
+						return false;
+					}//공백체크 if
+					
+					$.getJSON(
+							'/jqpro/checkById',	
+							{'id' : idval},
+							 function(res){
+								
+	 							$('#spid').html(res.sw).css('color','red');
+								
+	 						}
+					
+					)//getJSON
+
+				})//btnid
+				
+
+			})//fuc
+		</script>
+		<style>
+
+			.box{
+				font-size:  1.2em;
+			
+			}
+		
+		</style>
+	</head>
+	<body>
+		
+		<div class ="box">
+			<div class="container">
+			  <h2>회원가입</h2>
+			  <form id = "form" class="form-horizontal">
+			    <div class="form-group">
+			      <label class="control-label col-sm-2" for="id">ID: </label>
+			      <div class="col-sm-5">
+			        <input type="text" class="form-control" id="id" placeholder="Enter id" name="mem_id">
+			      <span id = "spid"></span>
+			      <div class= "message" id = "idmsg"></div>
+			      </div>
+			      <button id ="btnid" type="button" class = "btn btn-info">중복검사</button>
+			    </div>
+			    
+			  
+			    <div class="form-group">
+			      <label class="control-label col-sm-2" for="name">이름:
+			      </label>
+			      <div class="col-sm-5">
+			        <input type="text" class="form-control" id="name" placeholder="Enter name" name="mem_name">
+			       <span class="sp"></span>
+			       <div class= "message" id = "namemsg"></div>
+			      </div>
+			    </div>
+			  
+			    <div class="form-group">
+			      <label class="control-label col-sm-2" for="bir">생년월일: </label>
+			      <div class="col-sm-5">
+			        <input type="date" class="form-control" id="bir" placeholder="Enter bir" name="mem_bir">
+			         <span class="sp"></span>
+			       <div class= "message" id = "passmsg"></div>
+			      </div>
+			    </div>
+			    
+			    
+			  
+			    <div class="form-group">
+			      <label class="control-label col-sm-2" for="pass">비밀번호: </label>
+			      <div class="col-sm-5">
+			        <input type="password" class="form-control" id="pass" placeholder="Enter password" name="mem_pass">
+			        <span class="sp"></span>
+			      <div class= "message" id = "passmsg"></div>
+			      </div>
+			    </div>
+			    
+			    
+			    
+			    
+			    <div class="form-group">
+			      <label class="control-label col-sm-2" for="passchk">비밀번호 확인:
+			      </label>
+			      <div class="col-sm-5">
+			        <input type="password" class="form-control" id="passchk" placeholder="Enter passwordchk">
+			        <span class="sp"></span>
+			      	<div class= "message" id = "pass2msg"></div>
+			      </div>
+			    </div>
+			    
+			    
+			    
+			    <div class="form-group">
+			      <label class="control-label col-sm-2" for="tel">휴대폰번호 : 
+			      </label>
+			      <div class="col-sm-5">
+			        <input type="text" class="form-control" id="tel" placeholder="Enter tel" name="mem_hp">
+			       <div class= "message" id = "hpmsg"></div>
+			       <span class="sp"></span>
+			      </div>
+			    </div>
+			    
+			    <div class="form-group">
+			      <label class="control-label col-sm-2" for="email">이메일:
+			      </label>
+			      <div class="col-sm-5">
+			        <input type="email" class="form-control" id="email" placeholder="Enter email" name="mem_mail">
+			       <div class= "message" id = "mailmsg"></div>
+			        <span class="sp"></span>
+			      </div>
+			    </div>
+			    
+			    
+			    <div class="form-group">
+			      <label class="control-label col-sm-2" for="zip">우편번호:</label>
+			      <div class="col-sm-5">
+			        <input type="text" class="form-control" id="zip" placeholder="Enter zip" name="mem_zip">
+			     </div>
+			      <button id ="btnzip" type="button" class = "btn btn-info">번호검색 -windowopen</button>
+			      <button data-toggle="modal" data-target="#myModal" type="button" class = "btn btn-info">번호검색 -modal</button>
+			    </div>
+			    <div class="form-group">
+			      <label class="control-label col-sm-2" for="add1">주소 :</label>
+			      <div class="col-sm-10">
+			        <input type="text" class="form-control" id="add1" placeholder="Enter add1" name="mem_add1">
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <label class="control-label col-sm-2" for="addr2">상세 주소 :</label>
+			      <div class="col-sm-10">
+			        <input type="text" class="form-control" id="add2" placeholder="Enter add2" name="mem_add2">
+			      </div>
+			    </div>
+			
+			
+				<div class="form-group">        
+					<div class="col-sm-offset-2 col-sm-10">
+						<button id ="btnjoin" type="button" class="btn btn-primary btn-lg">가입 신청</button>
+						<span id = spjoin></span>
+						<button id ="btnreset" type="reset" class="btn btn-warning btn-lg">초기화</button>
+					</div>
+				</div>
+			</form>
+			</div>
+		</div>
+		<!-- Modal -->
+		<div id="myModal" class="modal fade" role="dialog">
+		  <div class="modal-dialog modal-lg">
+		
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 class="modal-title">Modal Header</h4>
+		      </div>
+		      <div class="modal-body">
+		       <h3>우편번호 찾기</h3>
+				찾는 동 이름을 입력<br>
+				
+				<input type = "text" id ="dong" >
+				<input id ="btndong"type = "button" value ="확인">
+				<div id = "result1"></div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		
+		  </div>
+		</div>
+		
+		<script src="../js/memberreg.js"></script>
+	</body>
+	
+</html>

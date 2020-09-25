@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>1.테이블 조인</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		
+		<link href ="../CSS/public.css" rel ="stylesheet">
+<!-- 		<script src="../js/jquery-3.5.1.min.js" ></script> -->
+		<script>
+		
+			$(function(){
+				//실행하자마자 lprod실행
+				$.getJSON(
+					'/jqpro/20200921/lprod.jsp',function(res){
+						
+						code ="";
+						$.each(res,function(i){
+							code += "<option value ='" + res[i].Lprod_GU + "'>" + res[i].Lprod_NM+ "</option>";
+							
+							
+						})//반복문
+						
+						$('#Lprod').html(code);
+						$('#Lprod').trigger('change');
+						
+					}//fun	
+				
+				
+				,'json')//lprod.jsp
+				
+				
+				
+				//lprod목을 선택하면
+				$('#Lprod').on('change',function(){
+					
+					
+					
+				
+				$.post(
+						
+				'prod.jsp', //url
+				
+				{'gu':$(this).val()},//data
+				
+				function(res){ //success
+					
+				
+					if(res.sw == "ok"){
+					code ="";
+						
+					$.each(res.datas,function(i){
+						
+						code += "<option value ='" +res.datas[i].id + "'>" + res.datas[i].name + "</option>";
+					
+					})//반복문
+						
+					}
+					else{
+						
+						code = "<option value ='0'>데이터없음</option>" ;
+						
+					}
+					
+					$('#prod').html(code);
+					$('#prod').trigger('change');
+				}//success
+				
+				,'json')
+				
+				})
+				
+				$('#prod').on('change',function(){
+					
+					idval = $(this).val().trim();
+					
+					
+					if(idval ==0){
+						
+						$('#detail').empty();
+						$('<img>',{ 
+							'src' :'../images/철수사진.jpg', 
+							'width' : '150px',
+							'height':'150px'}).appendTo('#detail');
+						
+						return false;
+					}
+					
+					$.ajax({
+						
+						url : 'prodDetail.jsp',
+						type : 'get',
+						
+						data : {'id': idval},
+						success : function(res){
+							
+							code = "<table class='table table-striped'>";
+							code +="<tr><td>PROD_ID</td>";
+							code += "<td>" + res.id+ "</td></tr>"
+							
+							code +="<tr><td>PROD_NAME</td>";
+							code += "<td>" + res.name+ "</td></tr>"
+							
+							code +="<tr><td>PROD_LGU</td>";
+							code += "<td>" + res.lgu+ "</td></tr>"
+							
+							code +="<tr><td>PROD_BUYER</td>";
+							code += "<td>" + res.buyer+ "</td></tr>"
+							
+							code +="<tr><td>PROD_COST</td>";
+							code += "<td>" + res.cost+ "</td></tr>"
+							
+							code +="<tr><td>PROD_PRICE</td>";
+							code += "<td>" + res.price+ "</td></tr>"
+							
+							code +="<tr><td>PROD_SALE</td>";
+							code += "<td>" + res.sale+ "</td></tr>"
+							
+							code +="<tr><td>PROD_OUTLINE</td>";
+							code += "<td>" + res.outline+ "</td></tr>"
+							
+							code +="<tr><td>PROD_SIZE</td>";
+							code += "<td>" + res.size+ "</td></tr>"
+							
+							
+							code +="<tr><td>PROD_COLOR</td>";
+							code += "<td>" + res.color+ "</td></tr>"
+							
+							code += "</table>"
+							
+							$('#detail').html(code);
+							
+						},
+						error(req){
+							
+						},
+						dataType :'json'
+					})//ajax
+					
+					
+					
+				})//prod 
+					
+			})
+		</script>
+	</head>
+	<body>
+		
+		<div class ="box">
+			<h3>Lprod_Prod</h3>
+			1. Lprod테이블의 lprod_gu와 lprod_nm을 조회한다<br>
+			2. Lprod의 검색결과 중 하나를 선택하면 prod테이블의 prod_id,prod_name을 조회한다<br>
+			prod테이블 조회시 조건은 prod_lgu = lprod_gu이다<br>
+			3.prod테이블 조회 결과 중 하나를 선택하면 선택항목의 상세보기를 조회한다<br>
+			조회시 검색 조건은 prod_id = 선택항목의 id<br>
+			4.$('선택자').trigger('이벤트이름') : 연결된 모든 이벤트가 한번에 실행<br>
+<!-- 			<div id = "result1"> -->
+			
+<!-- 				<select id = "Lprod"> -->
+<!-- 					<option value = 'lprod_gu>lprod_nm</option> -->
+<!-- 				</select> -->
+				
+<!-- 				<select id = "prod"> -->
+				
+<!-- 					<option value = 'prod_lgu>prod_nm</option> -->
+				
+<!-- 				</select> -->
+				
+<!-- 				<div id ="detail"></div> -->
+<!-- 			</div> -->
+		</div>
+		<div class ='box'>
+			<div class="container">
+			  <h2>Lprod_Prod</h2>
+			  <form>
+			    <div class="form-group">
+			      <label for="Lprod">Lprod List</label>
+			      <select class="form-control" id="Lprod">
+			      </select>
+			       <br>
+			      <label for="prod">Prod List</label>
+			      <select class="form-control" id="prod">
+				        
+			      </select>
+			      <br>
+			      <div id ="detail"></div> 
+			     
+			     
+			    </div>
+			  </form>
+			</div>
+		
+		</div>
+		
+		
+		
+		
+		
+	</body>
+</html>

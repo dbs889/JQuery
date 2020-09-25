@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>조작관련 메소드</title>
+		<link href ="../CSS/public.css" rel ="stylesheet">
+		<script src="../js/jquery-3.5.1.min.js" ></script>
+		<script>
+		$(function(){
+			
+			$('.box1 p').on('click',function(){
+				
+				pTitle = $(this).attr('title')
+				pText = $(this).text()
+				
+// 				vimg = $('<img src = "../images/" + pText + ".jpg" width ="100px" height = "100px">');
+				vimg = $('<img>',{
+					
+					'src' :'../images/' + pText + '.jpg',
+					'width' :'100px',
+					'height' : '100px'
+					
+				})//새로운 이미지 태그 생성
+				
+// 				$(this).append(vimg);
+// 				$(vimg).appendTo(this);
+				$(this).prepend(vimg);
+// 				$(this).after(vimg);
+				
+			})//click
+			
+			$('.box2 p').on('click',function(){
+				
+				pTitle = $(this).attr('title')
+				pText = $(this).text()
+				
+// 				vimg = $('<img src = "../images/" + pText + ".jpg" width ="100px" height = "100px">');
+				vimg = $('<img>',{
+					
+					'src' :'../images/' + pText + '.jpg',
+					'width' :'100px',
+					'height' : '100px'
+					
+				})//img
+// 				$(this).before(vimg);
+// 				$(vimg).insertBefore(this);
+// 				$(this).after(vimg);
+				$(vimg).insertAfter(this);
+				
+			})//box2 click
+			
+			$('#start').on('click',function(){
+			
+				
+			//setTimeout : 일정한 시간을 정해주면 정해진 시간이 끝날 때 까지 수행
+				
+			setIv = setInterval(function(){
+			
+				$('.box3 img:first').appendTo('.box3')
+// 				$('.box3 img:first').appendTo($('img').first())
+				
+			},500);//interval
+			
+				//확인 버튼 사용불가능으로 설정(prop) 또는 감추기(css(),hide())
+// 				$(this).hide();
+// 				$(this).css('display','none');
+				$(this).prop('disabled',true);
+				
+			})//start bt click
+			
+			$('#stop').on('click',function(){
+				
+				//종료
+				clearInterval(setIv);
+				
+				//종료가 됐으면 확인버튼을 다시 사용가능한걸로 설정한다
+// 				$('#start').show();
+// 				$('#start').css('display'.'inline');
+				$('#start').prop('disabled',false)
+				
+			})//stop  bt click
+			
+		})//f
+		
+		
+		</script>
+		<style>
+		
+		.box3 img{
+		width: 200px;
+		height: 200px;
+		
+		
+		}
+		
+		</style>
+	</head>
+	<body>
+		
+		<div class ="box box1">
+			<h3>이미지 추가 - append/prepend</h3>
+			$('selector).append(content),$(content)appendTo(selector)<br>
+			$('selector).prepend(content),$(content)prerendTo(selector)<br>
+			  <p title="Penguin">펭귄</p>
+			  <p title="Chrysanthemum">국화</p>
+			  <p title="Koala">코알라</p>
+			  <p title="Hydrangeas">수국</p>  
+		</div>
+		<div class ="box box2">
+			<h3>이미지 추가 - after/before</h3>
+			after(content),insertAfter(selector)<br>
+			before(content),insertBefore(selector)<br>
+			  <p title="Penguin">펭귄</p>
+			  <p title="Chrysanthemum">국화</p>
+			  <p title="Koala">코알라</p>
+			  <p title="Hydrangeas">수국</p>  
+		</div>
+		<div class ="box box3">
+			<h3>이미지 이동 - after/before</h3>
+			기존에 document에 미리 생성되어 있는 요소를 대상으로 추가를 하면 <br>
+			기존의 요소가 이동이 된다<br><br>
+			<input type="button" value="확인" id = "start">
+			<input type="button" value="종료"id = "stop"><br><br>
+			  <img  src="../images/image.1.jpg">
+			  <img  src="../images/image.2.jpg">
+			  <img  src="../images/image.3.jpg">
+			  <img  src="../images/image.4.jpg">
+			  <img  src="../images/image.5.jpg">
+			 
+		</div>
+	</body>
+</html>

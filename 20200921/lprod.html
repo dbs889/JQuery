@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<link href ="../CSS/public.css" rel ="stylesheet">
+		<script src="../js/jquery-3.5.1.min.js" ></script>
+		<script>
+		
+			$(function(){
+				
+				$('input:button').on('click',function(){
+					
+					$.ajax({
+						
+						url : 'lprod.jsp',
+						type :'get',
+						dataType :'json',
+						success : function(res){
+							
+							code = "<table border = 1 style = 'border-collapse:collapse'><tr style = 'background:skyblue'><td>LPROD_ID</td>";
+							code += "<td>LPROD_GU</td>";
+							code += "<td>LPROD_NM</td></tr>";
+							
+							$.each(res,function(i){
+								
+								code += "<tr><td>" + res[i].Lprod_ID + "</td>";
+								code += "<td>" + res[i].Lprod_GU + "</td>";
+								code += "<td>" + res[i].Lprod_NM + "</td></tr>";
+								
+							})
+							
+						code += "</table>";
+						$('#result1').html(code);
+					
+						},
+						error : function(req){
+							alert('상태 : ' + req.status)
+						}
+						
+						
+					})//ajax
+					
+				})//but
+				
+
+			})//f
+		</script>
+	</head>
+	<body>
+		
+		<div class ="box">
+			<h3>Lprod</h3>
+			<input type = "button" value ="lprodList">
+			<div id = "result1"></div>
+		</div>
+	</body>
+</html>

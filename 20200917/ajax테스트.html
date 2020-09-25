@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<link href ="../CSS/public.css" rel ="stylesheet">
+		<script src="../js/jquery-3.5.1.min.js" ></script>
+		<script>
+		
+			$(function(){
+				$('#get').on('click',function(){
+					
+					//입력한 값을 가져온다
+					vNm = $('#name').val();
+					vId = $('#id').val();
+					
+					//
+					$('#f1').attr('action','get.jsp?name=' + vNm + '&id=' + vId);
+					
+					$('#f1').attr('method','get');
+					$('#f1').submit();
+					
+					
+				})//get click -기본
+				
+				$('#post').on('click',function(){
+					
+// 					vNm = $('#name2').val();
+// 					vId = $('#id2').val();
+					
+					$('#f2').attr('action','post.jsp');
+					
+					$('#f2').attr('method','post');
+					$('#f2').submit();
+				
+				})//post-기본
+				
+					var xhttp = new XMLHttpRequest();
+				
+				$('#ajaxGet').on('click',function(){
+					
+					//입력데이터 가져오기
+					vNm = $('#name3').val();
+					vId = $('#id3').val();
+					
+					//요청
+					xhttp.open('get',"ajget.jsp?name=" + vNm + '&id=' + vId,  true); //true : 비동기
+					xhttp.send();
+					
+					//응답
+					xhttp.onreadystatechange = function(){
+						
+						if(this.readyState == 4 && this.status ==200){ //404 : 그런말이 없다
+							res = this.responseText;
+						
+							$('#result3').html(res).css('background','yellow');
+							
+							//ajax는 ㅈ
+						}
+					}
+			
+				})//ajaxGet
+				
+				
+				$('#ajaxPost').on('click',function(){
+					
+					//입력한 데이터를 가져온다
+					vNm = $('#name4').val();
+					vId = $('#id4').val();
+					
+					
+					data = "name=" + vNm + "&id=" + vId;
+					
+					//응답
+					xhttp.onreadystatechange = function(){
+						
+						if(this.readyState == 4 && this.status ==200){
+							res = this.responseText;
+							
+							$('#result4').html(res).css('background','yellow');
+						}
+					}
+					xhttp.open('post','ajpost.jsp',true);
+					xhttp.setRequestHeader('Content-type','application/x-www-form-urlencoded')
+					xhttp.send(data);
+					
+				})//ajaxPost
+				
+				
+				
+			})//f
+		</script>
+	</head>
+	<body>
+		
+		<div class ="box">
+			<h3>기존의 방식 </h3>
+			응답 페이지 전체를 새로운 페이지로 로드한다<br>
+			<form id= "f1">
+				이름  :  <input type="text" name="name" id ="name"><br><br>
+				아이디 : <input type="text" name ="id" id ="id"><br>
+				<input type="button" id ="get" value="get전송">
+				
+			</form>
+			<br><br>
+			<form id ="f2">
+				이름  :  <input type="text" name="name2" id ="name2"><br><br>
+				아이디 : <input type="text" name ="id2" id ="id2"><br>
+				<input type="button" id ="post" value="post전송">
+				
+			</form>
+			
+		</div>
+		<div class ="box">
+			<h3>ajax 방식 </h3>
+			응답 데이터를 현재 페이지의 영역에 출력한다
+			응답페이지를 전체페이지로 로드하지 않는다 
+			<form id= "f3">
+				이름  :  <input type="text" name="name3" id ="name3"><br><br>
+				아이디 : <input type="text" name ="id3" id ="id3"><br>
+				<input type="button" id ="ajaxGet" value="get전송">
+				
+			</form>
+			<div id = "result3"></div>
+			<br><br>
+			<form id ="f4">
+				이름  :  <input type="text" name="name4" id ="name4"><br><br>
+				아이디 : <input type="text" name ="id4" id ="id4"><br>
+				<input type="button" id ="ajaxPost" value="post전송">
+				
+			</form>
+			<div id = "result4"></div>
+			
+		</div>
+	</body>
+</html>

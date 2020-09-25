@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>스타일시트관련 메소드</title>
+		<link href ="../CSS/public.css" rel ="stylesheet">
+		<script src="../js/jquery-3.5.1.min.js" ></script>
+		<script>
+		
+		$(function(){
+			
+			
+			$('#add').on('click',function(){
+				
+				$('.pp').addClass('backcolor');
+			})//add bt
+			
+			
+			$('#remove').on('click',function(){
+				
+				$('.pp').removeClass('backcolor');
+			})//remove bt
+			
+			$('#toggle').on('click',function(){
+			
+				$('.pp').toggleClass('backcolor');
+				
+				
+			})//toggle
+			
+			$('#has').on('click',function(){
+			
+				a = $('.pp').hasClass('backcolor');
+				if(a){$('.pp').removeClass('backcolor');}
+				else{$('.pp').addClass('backcolor');}
+				
+			})//has
+			
+			$('.pp2').on('click',function(){
+				
+				$(this).toggleClass('backcolor');
+				
+			})//pp2 click
+			
+			$('.pp3').on('mouseover',function(){
+				
+				$(this).addClass('backcolor');
+				
+			})//mouseover
+			
+			$('.pp3').on('mouseout',function(){
+				$(this).removeClass('backcolor');
+				
+			})
+			
+		})//f
+		
+		</script>
+		<style>
+		
+		.backcolor{
+		
+		
+			background: #9bb382;
+			color : white;
+		
+		}
+		
+		
+		</style>
+	</head>
+	<body>
+		
+		<div class ="box box1">
+			<h3>스타일 추가 삭제</h3>
+			추가 할 스타일을 &lt;style&gt;에 정의한다<br>
+			스크립트에서 동적으로 스타일을 추가하거나 삭제한다<br>
+			addClass('class이름')<br>
+			removeClass('clss이름')<br>
+			hasClass('class이름') -- class이름이 있는지 없는지를 true,false로 리턴한다<br>
+			toggleClass('class이름') -- add와 remove가 번갈아 실행되는것 <br><br>
+			
+			
+			<p id = "p1" class ="pp">무궁화 꽃이 피었습니다</p>
+			<p id = "p2" class = "pp">사과가 주렁주렁 열렸습니다</p>
+			
+			
+			<input id ="add" type = "button" value ="add">
+			<input id ="remove"type = "button" value ="remove">
+			<input id = "has" type = "button" value ="has">
+			<input id = "toggle" type = "button" value ="toggle">
+			
+			
+			<div id = "result1"></div>
+		</div>
+		<div class ="box box2">
+			<h3>스타일 추가 삭제</h3>
+			p태그를 클릭할 때 마다 toggleClass(addClass, removeClass)가 실행되어진다<br> 
+			<p id = "p3" class ="pp2">무궁화 꽃이 피었습니다</p>
+			<p id = "p4" class = "pp2">사과가 주렁주렁 열렸습니다</p>
+			
+		</div>
+		<div class ="box box3">
+			<h3>스타일 추가 삭제</h3>
+			p태그에 마우스 over ==>  addClass <br>
+			마우스 out ==> removeClass)가 실행되어진다<br> 
+			<p class ="pp3">무궁화 꽃이 피었습니다</p>
+			<p class = "pp3">사과가 주렁주렁 열렸습니다</p>
+			
+		</div>
+	</body>
+</html>

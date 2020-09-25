@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>1. prop - 상태설정</title>
+		<link href ="../CSS/public.css" rel ="stylesheet">
+		<script src="../js/jquery-3.5.1.min.js" ></script>
+		<script>
+		
+			$(function(){
+				
+				$('#but1').on('click',function(){
+					res = "";
+					
+					
+					
+					
+// 					$('#checkTest').prop('checked',!check);
+					
+					
+						res +=	"체크박스 : " + $('#checkTest').prop('checked') + "<br>";
+					
+						
+						res += "리스트박스(option) : " + $('#selTest option:eq(0)').prop('selected') + "<br>";
+					
+						res += "텍스트 : " + $('#txtTest').prop('readonly') + "<br>";
+						
+						res += "버튼 객체 : " + $('#runBtn').prop('disabled') + "<br>";
+						
+						$('#out').html(res);
+						
+						
+				})//but1
+				
+				$('#but2').on('click',function(){
+				
+					check = $('#checkTest').prop('checked'); //현재상태값 가져오기
+					$('#checkTest').prop('checked',!check);
+					
+					
+					select = $('#selTest option:eq(2)').prop('selected');
+					$('#selTest option:eq(0)').prop('selected',!select);
+					
+					
+					text = $('#txtTest').prop('readonly');
+					$('#txtTest').prop('readonly',!text); 
+					
+					
+					btn = $('#runBtn').prop('disabled');
+					$('#runBtn').prop('disabled',!btn);
+					
+					
+					
+				})//but2
+				
+				
+				$('#selectAll').on('change',function(){
+// 					alert(event.target.tagName);
+					All = $('#selectAll').prop('checked');
+					$('.check').prop('checked',All);
+					
+					
+				})//전체선택
+				
+			})//f
+		</script>
+	</head>
+	<body>
+		
+		<div class ="box">
+			<h3>상태설정</h3>
+			확인버튼을 클릭하면 각 요소의 상태값을 얻어온다<br>
+			결과 값은 true / false이다 <br><br>
+			prop('checked')<br>
+			prop('selected')<br>
+			prop('readonly')<br>
+			prop('disabled')<br><br>
+			
+			<input type = "button" id ="but1" value ="확인">
+<!-- 			<input type = "button" id ="but2" value ="변경"><br><br> -->
+			<button type = "button" id ="but2" value ="변경"></button><br><br>
+			변경 버튼을 클리하면 현재상태의 값을 반대로 변경한다<br>
+			prop('checked' ,!현재상태);<br><br>
+			<div id = "result1">
+				<form onsubmit="return false"><!-- submit이 발생해도 return false : 전송하지 않겠다 -->
+					체크박스(체크버튼) :    
+					<input type="checkbox" id="checkTest"  checked><br><br>
+					
+					리스트박스(select객체) : 
+					
+					 <select id="selTest">
+					     <option value="1">하나</option> 
+					     <option value="2">둘</option>
+					     <option value="3" selected >셋</option>  
+					     <option value="4">넷</option>
+					 </select><br><br>
+					
+					 text객체	(readonly) : 
+					 <input type="text" value="가나다" id="txtTest"><br><br>
+					
+					 button객체(disabled) : 
+					       <input type="button" value="실행" onclick = "alert('실행')" id="runBtn">
+				</form>
+			<div id = "out"></div>
+			</div>
+		<div class ="box">
+			<h3>상태설정</h3>
+			<div id = "result2">
+				체크박스(전체선택/해제) : <br><br>
+				<input type = "checkbox" id = "selectAll">전체선택
+				<input type = "checkbox" value ="1" class = "check">1
+				<input type = "checkbox" value ="2" class = "check">2
+				<input type = "checkbox" value ="3" class = "check">3
+				<input type = "checkbox" value ="4" class = "check">4
+				<input type = "checkbox" value ="5" class = "check">5
+			
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>MyMember TABLE</title>
+		<link href ="../CSS/public.css" rel ="stylesheet">
+		<script src="../js/jquery-3.5.1.min.js" ></script>
+		<script>
+		
+			$(function(){
+				
+				
+				$(':button').on('click',function(){
+					
+					$.ajax({
+						
+						url : "MyMember.jsp",
+						type : "get",
+						dataType : "json",
+						success : function(res){
+							
+							code = "<table border =1 style = 'border-collapse:collapse;'><tr><td>MEM_ID</td>";
+							code += "<td>MEM_NAME</td>";
+							code += "<td>MEM_TEL</td>";
+							code += "<td>MEM_ADDR</td></tr>";
+							$.each(res,function(i){
+								
+								code += "<tr><td>" + res[i].id + "</td>";
+								code += "<td>" + res[i].name + "</td>";
+								code += "<td>" + res[i].tel + "</td>";
+								code += "<td>" + res[i].addr + "</td></tr>";
+								
+								
+							})//반복문
+							
+							
+							code += "</table>";
+							$('#result1').html(code);
+							
+							
+						},
+						error : function(req){
+							alert("상태 : " + req.status)
+						}
+						
+						
+						
+					})//ajax
+					
+					
+					
+					
+				})//but
+
+			})//f
+		</script>
+		<style>
+		
+		
+		</style>
+	</head>
+	<body>
+		
+		<div class ="box">
+			<h3>타이틀</h3>
+			<input type = "button" value ="확인">
+			<div id = "result1"></div>
+		</div>
+	</body>
+</html>
